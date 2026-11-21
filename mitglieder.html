@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="de-AT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mitgliederbereich – Niko Vöhr</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="container nav" aria-label="Hauptnavigation">
+      <a href="index.html" class="logo">Niko Vöhr</a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Menü öffnen">☰</button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="index.html#aktivitys">AkTivitys</a></li>
+        <li><a href="index.html#kontakt">Kontakt</a></li>
+        <li><a href="login.html" id="auth-link">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="section">
+    <div class="container" id="members-root">
+      <p class="muted" id="loading">Wird geladen …</p>
+
+      <div id="members-app" class="hidden">
+        <div class="page-head">
+          <h1>Hallo, <span id="hello-name"></span>!</h1>
+          <button class="btn btn-outline" id="logout-btn">Abmelden</button>
+        </div>
+
+        <!-- Neuer Beitrag -->
+        <section class="panel" id="neu">
+          <h2 id="post-form-title">Neuer Beitrag</h2>
+          <form class="form wide" id="post-form">
+            <input type="hidden" name="id">
+            <div class="row">
+              <label>Kategorie
+                <select name="category" required></select>
+              </label>
+              <label class="grow">Titel
+                <input type="text" name="title" required minlength="3" maxlength="150">
+              </label>
+            </div>
+            <label>Text <span class="muted small">(Leerzeile = neuer Absatz)</span>
+              <textarea name="content" required minlength="10" maxlength="20000" rows="10"></textarea>
+            </label>
+            <div class="row">
+              <button type="submit" class="btn">Veröffentlichen</button>
+              <button type="button" class="btn btn-outline hidden" id="cancel-edit">Abbrechen</button>
+            </div>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <!-- Beiträge verwalten -->
+        <section class="panel">
+          <h2 id="my-posts-title">Meine Beiträge</h2>
+          <div id="my-posts"></div>
+        </section>
+
+        <!-- Profil -->
+        <section class="panel">
+          <h2>Mein Profil</h2>
+          <form class="form wide" id="profile-form">
+            <p class="muted small">Username: <strong id="profile-username"></strong></p>
+            <div class="row">
+              <label class="grow">Vorname <input type="text" name="first_name" required maxlength="60"></label>
+              <label class="grow">Nachname <input type="text" name="last_name" required maxlength="60"></label>
+            </div>
+            <div class="row">
+              <label class="grow">Geburtsdatum <input type="date" name="birth_date"></label>
+              <label class="grow">Wohnort <input type="text" name="city" maxlength="80"></label>
+            </div>
+            <label>Über mich <textarea name="about" maxlength="2000" rows="4"></textarea></label>
+            <button type="submit" class="btn">Profil speichern</button>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <!-- Nur Admin -->
+        <section class="panel admin hidden" id="admin-panel">
+          <h2>Mitglied anlegen <span class="badge">Admin</span></h2>
+          <form class="form wide" id="member-form" autocomplete="off">
+            <div class="row">
+              <label class="grow">Vorname <input type="text" name="first_name" required maxlength="60"></label>
+              <label class="grow">Nachname <input type="text" name="last_name" required maxlength="60"></label>
+            </div>
+            <div class="row">
+              <label class="grow">Username <input type="text" name="username" required pattern="[a-zA-Z0-9_.\-]{3,30}" autocapitalize="none"></label>
+              <label class="grow">Passwort <input type="password" name="password" required minlength="8" autocomplete="new-password"></label>
+            </div>
+            <div class="row">
+              <label class="grow">Geburtsdatum <input type="date" name="birth_date"></label>
+              <label class="grow">Wohnort <input type="text" name="city" maxlength="80"></label>
+            </div>
+            <label>Über mich <textarea name="about" maxlength="2000" rows="3"></textarea></label>
+            <button type="submit" class="btn">Mitglied anlegen</button>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </form>
+
+          <h2 class="subhead">Mitglieder</h2>
+          <div id="member-list"></div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>© <span class="year"></span> Niko Vöhr</span>
+      <span><a href="offenlegung.html">Impressum / Offenlegung</a> · <a href="datenschutz.html">Datenschutz</a></span>
+    </div>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/members.js"></script>
+</body>
+</html>

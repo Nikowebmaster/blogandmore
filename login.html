@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="de-AT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login – Niko Vöhr</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="container nav" aria-label="Hauptnavigation">
+      <a href="index.html" class="logo">Niko Vöhr</a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Menü öffnen">☰</button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="index.html#aktivitys">AkTivitys</a></li>
+        <li><a href="index.html#kontakt">Kontakt</a></li>
+        <li><a href="login.html" id="auth-link">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <h1 class="page-title">Mitglieder-Login</h1>
+      <form class="form narrow" id="login-form">
+        <label>Username
+          <input type="text" name="username" required autocomplete="username" autocapitalize="none" spellcheck="false">
+        </label>
+        <label>Passwort
+          <input type="password" name="password" required autocomplete="current-password">
+        </label>
+        <button type="submit" class="btn">Anmelden</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+        <p class="muted small">Eine Registrierung ist nicht möglich – neue Mitglieder werden vom Administrator angelegt.</p>
+      </form>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>© <span class="year"></span> Niko Vöhr</span>
+      <span><a href="offenlegung.html">Impressum / Offenlegung</a> · <a href="datenschutz.html">Datenschutz</a></span>
+    </div>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+  <script type="module">
+    import { getClient, usernameToEmail, getCurrentMember } from "./js/supabase.js";
+
+    const form = document.getElementById("login-form");
+    const status = form.querySelector(".form-status");
+    const setStatus = (t, type = "") => { status.textContent = t; status.className = "form-status " + type; };
+
+    getCurrentMember().then((m) => { if (m) location.href = "mitglieder.html"; }).catch(() => {});
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const sb = await getClient().catch(() => null);
+      if (!sb) return setStatus("Der Login ist noch nicht eingerichtet (Supabase fehlt).", "err");
+
+      const btn = form.querySelector("button");
+      btn.disabled = true;
+      setStatus("Anmeldung läuft …");
+      const { error } = await sb.auth.signInWithPassword({
+        email: usernameToEmail(form.username.value),
+        password: form.password.value,
+      });
+      btn.disabled = false;
+      if (error) return setStatus("Username oder Passwort ist falsch.", "err");
+      location.href = "mitglieder.html";
+    });
+  </script>
+</body>
+</html>

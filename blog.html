@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de-AT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog – Niko Vöhr</title>
+  <meta name="description" content="Blog über Autos, Investments, Fitness und das Projekt AkTivitys.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="container nav" aria-label="Hauptnavigation">
+      <a href="index.html" class="logo">Niko Vöhr</a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Menü öffnen">☰</button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="index.html#aktivitys">AkTivitys</a></li>
+        <li><a href="index.html#kontakt">Kontakt</a></li>
+        <li><a href="login.html" id="auth-link">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <div class="page-head">
+        <h1 id="blog-heading">Blog</h1>
+        <a href="mitglieder.html#neu" class="btn hidden" id="new-post-btn">+ Neuer Beitrag</a>
+      </div>
+      <nav class="filters" id="filters" aria-label="Kategorien"></nav>
+      <div id="posts" class="post-list"><p class="muted">Beiträge werden geladen …</p></div>
+      <p class="notice">Beiträge geben die persönliche Meinung der jeweiligen Autor:innen wieder. Sie sind keine Anlage-, Rechts- oder medizinische Beratung.</p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>© <span class="year"></span> Niko Vöhr</span>
+      <span><a href="offenlegung.html">Impressum / Offenlegung</a> · <a href="datenschutz.html">Datenschutz</a></span>
+    </div>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+  <script type="module">
+    import { initBlogPage } from "./js/blog.js";
+    initBlogPage();
+  </script>
+</body>
+</html>

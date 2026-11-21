@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="de-AT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Niko Vöhr – Persönliche Website</title>
+  <meta name="description" content="Persönliche Website von Niko Vöhr aus Wien: Blog über Autos, Investments und Fitness sowie das Projekt AkTivitys.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="container nav" aria-label="Hauptnavigation">
+      <a href="index.html" class="logo">Niko Vöhr</a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Menü öffnen">☰</button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="index.html#aktivitys">AkTivitys</a></li>
+        <li><a href="index.html#kontakt">Kontakt</a></li>
+        <li><a href="login.html" id="auth-link">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ===== Visitenkarte ===== -->
+    <section class="hero" id="start">
+      <div class="container">
+        <div class="card">
+          <div class="avatar" aria-hidden="true">NV</div>
+          <div>
+            <h1>Niko Vöhr</h1>
+            <p class="intro">Mein Name ist Niko und ich beschäftige mich mit
+              <a href="blog.html?kategorie=autos">Autos</a>,
+              <a href="blog.html?kategorie=investment">Investments</a> und
+              <a href="blog.html?kategorie=fitness">Fitness</a>.</p>
+            <ul>
+              <li>📍 Wien, Österreich</li>
+              <li>✉️ <a href="#kontakt">Kontakt über das Formular</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Blog-Kategorien ===== -->
+    <section class="section" id="blog">
+      <div class="container">
+        <h2>Blog</h2>
+        <p class="lead">Beiträge von mir und den Mitgliedern – sortiert nach Themen.</p>
+        <div class="grid">
+          <a class="tile tile-link" href="blog.html?kategorie=autos"><h3>Autos</h3><p>Fahrzeuge, Projekte, Ausfahrten</p></a>
+          <a class="tile tile-link" href="blog.html?kategorie=investment"><h3>Investment</h3><p>Geld anlegen, Strategien, Lesenswertes</p></a>
+          <a class="tile tile-link" href="blog.html?kategorie=fitness"><h3>Fitness</h3><p>Training, Ernährung, Ausgleich</p></a>
+        </div>
+
+        <h3 class="subhead">Neueste Beiträge</h3>
+        <div id="latest-posts" class="post-list"><p class="muted">Beiträge werden geladen …</p></div>
+        <p><a class="btn" href="blog.html">Alle Beiträge</a></p>
+      </div>
+    </section>
+
+    <!-- ===== Projekt AkTivitys ===== -->
+    <section class="section" id="aktivitys">
+      <div class="container">
+        <h2>Projekt: AkTivitys</h2>
+        <p class="lead">Mein aktuelles Herzensprojekt.</p>
+        <div class="project">
+          <h3>AkTivitys</h3>
+          <p>[Worum geht es bei AkTivitys? Idee, Ziel, für wen ist es gedacht?]</p>
+          <div class="grid">
+            <article class="tile"><h3>Die Idee</h3><p>[Kurzbeschreibung]</p></article>
+            <article class="tile"><h3>Aktueller Stand</h3><p>[Was ist schon umgesetzt?]</p></article>
+            <article class="tile"><h3>Neuigkeiten</h3><p><a href="blog.html?kategorie=aktivitys">Zu den Blog-Beiträgen über AkTivitys</a></p></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Kontakt ===== -->
+    <section class="section" id="kontakt">
+      <div class="container">
+        <h2>Kontakt</h2>
+        <p class="lead">Schreib mir gerne eine Nachricht.</p>
+
+        <form class="form" id="contact-form" novalidate>
+          <label>Name
+            <input type="text" name="name" required autocomplete="name">
+          </label>
+          <label>E-Mail
+            <input type="email" name="email" required autocomplete="email">
+          </label>
+          <label>Nachricht
+            <textarea name="message" required></textarea>
+          </label>
+          <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <label class="consent">
+            <input type="checkbox" name="consent" required>
+            <span>Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> gelesen und stimme zu, dass meine Angaben zur Beantwortung meiner Anfrage verarbeitet werden.</span>
+          </label>
+          <button type="submit" class="btn">Nachricht senden</button>
+          <p class="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>© <span class="year"></span> Niko Vöhr</span>
+      <span><a href="offenlegung.html">Impressum / Offenlegung</a> · <a href="datenschutz.html">Datenschutz</a></span>
+    </div>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+  <script type="module">
+    import { renderPostList } from "./js/blog.js";
+    renderPostList(document.getElementById("latest-posts"), { limit: 3 });
+  </script>
+</body>
+</html>
