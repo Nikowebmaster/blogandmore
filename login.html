@@ -26,7 +26,7 @@
     <div class="container">
       <h1 class="page-title">Mitglieder-Login</h1>
       <form class="form narrow" id="login-form">
-        <label>Username
+        <label>Username oder E-Mail
           <input type="text" name="username" required autocomplete="username" autocapitalize="none" spellcheck="false">
         </label>
         <label>Passwort
@@ -69,7 +69,19 @@
         password: form.password.value,
       });
       btn.disabled = false;
-      if (error) return setStatus("Username oder Passwort ist falsch.", "err");
+      if (error) {
+        const msg = /not confirmed/i.test(error.message)
+          ? "Das Konto ist noch nicht bestätigt (in Supabase „Auto Confirm“ fehlt)."
+          : /invalid login credentials/i.test(error.message)
+          ? "Username oder Passwort ist falsch."
+          : "Anmeldung fehlgeschlagen: " + error.message;
+        return setStatus(msg, "err");
+      }
+      const m = await getCurrentMember();
+      if (!m) {
+        await sb.auth.signOut();
+        return setStatus("Anmeldung ok, aber zu diesem Konto gibt es kein Mitgliedsprofil. Bitte den Administrator kontaktieren.", "err");
+      }
       location.href = "mitglieder.html";
     });
   </script>

@@ -6,19 +6,20 @@ const CDN = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 export const isConfigured =
   !SUPABASE_URL.includes("DEIN-PROJEKT") && !SUPABASE_ANON_KEY.includes("DEIN_");
 
-let client = null;
+let clientPromise = null;
 
-/** Liefert den Supabase-Client oder null, wenn noch nicht eingerichtet. */
-export async function getClient() {
-  if (!isConfigured) return null;
-  if (!client) {
-    const { createClient } = await import(CDN);
-    client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  }
-  return client;
+/** Liefert den Supabase-Client (nur eine Instanz pro Seite) oder null, wenn noch nicht eingerichtet. */
+export function getClient() {
+  if (!isConfigured) return Promise.resolve(null);
+  clientPromise ??= import(CDN).then(({ createClient }) => createClient(SUPABASE_URL, SUPABASE_ANON_KEY));
+  return clientPromise;
 }
 
-export const usernameToEmail = (u) => `${u.trim().toLowerCase()}@${MEMBER_EMAIL_DOMAIN}`;
+/** Username → interne Login-Adresse. Eine echte E-Mail-Adresse wird unverändert verwendet. */
+export const usernameToEmail = (u) => {
+  const v = u.trim().toLowerCase();
+  return v.includes("@") ? v : `${v}@${MEMBER_EMAIL_DOMAIN}`;
+};
 
 /** Aktuelle Sitzung + Profil (oder null). */
 export async function getCurrentMember() {
