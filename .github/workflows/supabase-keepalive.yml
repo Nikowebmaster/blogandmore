@@ -1,0 +1,39 @@
+# Hält das kostenlose Supabase-Projekt aktiv (wird sonst nach 7 Tagen Inaktivität pausiert).
+# Läuft automatisch alle 3 Tage; manuell startbar unter Actions → "Supabase Keep-alive" → Run workflow.
+name: Supabase Keep-alive
+
+on:
+  schedule:
+    - cron: "17 6 */3 * *"   # alle 3 Tage um 06:17 UTC
+  workflow_dispatch:
+
+permissions:
+  actions: write   # um diesen Ablauf aktiv zu halten (siehe letzter Schritt)
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Datenbank abfragen
+        run: |
+          URL=$(grep -oP 'SUPABASE_URL\s*=\s*"\K[^"]+' js/config.js)
+          KEY=$(grep -oP 'SUPABASE_ANON_KEY\s*=\s*"\K[^"]+' js/config.js)
+          if [[ "$URL" == *DEIN-PROJEKT* || "$KEY" == DEIN_* ]]; then
+            echo "Supabase ist in js/config.js noch nicht eingetragen – nichts zu tun."
+            exit 0
+          fi
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "apikey: $KEY" -H "Authorization: Bearer $KEY" \
+            "$URL/rest/v1/categories?select=slug&limit=1")
+          echo "Antwort von Supabase: HTTP $STATUS"
+          test "$STATUS" = "200"
+
+      # GitHub deaktiviert geplante Abläufe nach 60 Tagen ohne Aktivität im Repository.
+      # Das erneute "Aktivieren" setzt diesen Zähler zurück.
+      - name: Ablauf aktiv halten
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/supabase-keepalive.yml/enable" || true

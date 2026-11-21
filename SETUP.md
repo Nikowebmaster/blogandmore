@@ -40,8 +40,18 @@ Danach meldest du dich auf der Website mit Username **`niko`** und deinem Passwo
 Der anon-Key ist öffentlich und darf auf der Website stehen. Den **service_role**-Key bitte **nie** in die Website kopieren.
 
 ## 7. Kontaktformular (Formspree)
-1. Auf <https://formspree.io> ein Konto anlegen und ein Formular erstellen.
-2. Die Formular-Adresse (z. B. `https://formspree.io/f/abcdwxyz`) in [`js/config.js`](js/config.js) bei `FORM_ENDPOINT` eintragen.
+Bereits eingetragen (`FORM_ENDPOINT` in [`js/config.js`](js/config.js)).
+
+## 8. Supabase wach halten
+Kostenlose Supabase-Projekte werden nach 7 Tagen ohne Zugriff pausiert. Der Ablauf
+[`.github/workflows/supabase-keepalive.yml`](.github/workflows/supabase-keepalive.yml) fragt die Datenbank
+alle 3 Tage automatisch ab. Er startet von selbst, sobald Schritt 6 erledigt und hochgeladen ist.
+Kontrolle: im GitHub-Repository unter **Actions → Supabase Keep-alive** (grüner Haken = alles gut).
+Falls das Projekt doch einmal pausiert: im Supabase-Dashboard auf **Restore project** klicken – die Daten bleiben erhalten.
+
+## 9. Website veröffentlichen (einmalig)
+Im GitHub-Repository **Settings → Pages** → Source „Deploy from a branch“ → Branch **main**, Ordner **/ (root)** → Save.
+Nach 1–2 Minuten ist die Seite unter <https://nikowebmaster.github.io/blogandmore/> erreichbar.
 
 ---
 

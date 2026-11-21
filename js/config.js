@@ -10,7 +10,7 @@ export const SUPABASE_ANON_KEY = "DEIN_ANON_KEY";
 export const MEMBER_EMAIL_DOMAIN = "mitglieder.voehr.com";
 
 // Kontaktformular: Formspree-Adresse (https://formspree.io)
-export const FORM_ENDPOINT = "https://formspree.io/f/DEINE_FORM_ID";
+export const FORM_ENDPOINT = "https://formspree.io/f/xzerjpvk";
 
 // Blog-Kategorien (müssen zu den Einträgen in supabase/schema.sql passen)
 export const CATEGORIES = [
