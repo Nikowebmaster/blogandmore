@@ -2,8 +2,8 @@
 
 // Supabase: Projekt-URL und "anon public" Key
 // (Supabase-Dashboard → Project Settings → API). Der anon-Key ist öffentlich und darf hier stehen.
-export const SUPABASE_URL = "https://DEIN-PROJEKT.supabase.co";
-export const SUPABASE_ANON_KEY = "DEIN_ANON_KEY";
+export const SUPABASE_URL = "https://ewkwfotyuvotlfjcnjcq.supabase.co";
+export const SUPABASE_ANON_KEY = "sb_publishable_VYII-SkzlWhtqPVkqZm5Vg_xNzZul6m";
 
 // Interne Login-Adressen der Mitglieder: aus dem Username "max" wird "max@<Domain>".
 // Diese Adressen bekommen keine E-Mails, sie dienen nur der Anmeldung.

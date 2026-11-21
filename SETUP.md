@@ -12,6 +12,7 @@ Einmalig zu erledigen (ca. 15 Minuten):
 ## 2. Datenbank einrichten
 1. Links **SQL Editor** → **New query**.
 2. Den Inhalt von [`supabase/schema.sql`](supabase/schema.sql) einfügen → **Run**.
+3. Danach genauso [`supabase/grants.sql`](supabase/grants.sql) ausführen (Zugriffsrechte).
 
 ## 3. Öffentliche Registrierung abschalten
 **Authentication → Sign In / Providers**:
