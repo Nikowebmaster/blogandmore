@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Niko – Blog</title>
+  <title>Niko – Dashboard &amp; Blog</title>
   <meta name="description" content="Persönliche Website von Niko aus Wien: Blog über Autos, Investments und Fitness sowie das Projekt AkTivitys.">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -24,10 +24,27 @@
   </header>
 
   <main>
-    <!-- ===== Blog (Hauptthema) ===== -->
+    <!-- ===== Dashboard ===== -->
+    <section class="dash-hero" id="dashboard">
+      <div class="container">
+        <h1>Dashboard</h1>
+        <div class="dash-grid">
+          <article class="widget widget-weather" id="weather-widget" aria-labelledby="weather-title">
+            <header class="widget-head">
+              <h2 id="weather-title">☀️ Wetter Wien – nächste 5 Tage</h2>
+              <p class="weather-legend"><span class="lg sun"></span> Sonne (h) <span class="lg rain"></span> Regen (%)</p>
+            </header>
+            <div class="weather-days" id="weather-days"><p class="muted">Wetter wird geladen …</p></div>
+            <footer class="widget-foot" id="weather-foot">Daten: <a href="https://open-meteo.com/" rel="noopener">Open-Meteo.com</a> (CC BY 4.0)</footer>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Blog ===== -->
     <section class="blog-hero">
       <div class="container">
-        <h1>Blog</h1>
+        <h2 class="blog-title">Blog</h2>
         <p class="lead">Beiträge über Autos, Investments und Fitness – von mir und den Mitgliedern.</p>
       </div>
     </section>
@@ -87,6 +104,7 @@
   </footer>
 
   <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/dashboard.js"></script>
   <script type="module">
     import { renderPostList } from "./js/blog.js";
     renderPostList(document.getElementById("latest-posts"), { limit: 10 });
