@@ -6,6 +6,7 @@
   <title>AkTivitys – Teste mich – Niko Vöhr</title>
   <meta name="description" content="Prototyp von AkTivitys zum Testen.">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="aktivitys-proto.css">
 </head>
 <body>
 
@@ -28,11 +29,14 @@
       <p><a href="aktivitys.html">← Zurück zu AkTivitys</a></p>
       <h1 class="page-title">AkTivitys – Teste mich</h1>
 
-      <div class="project">
-        <h3>Der Prototyp ist in Arbeit</h3>
-        <p>Hier kannst du AkTivitys bald selbst ausprobieren: Aktivität aussuchen, Gleichgesinnte finden
-           und gemeinsam einen Termin planen.</p>
+      <div class="proto-area">
+        <p class="proto-hint">Wische nach <strong>rechts</strong> = dabei · <strong>links</strong> = nein · <strong>unten</strong> = mehr davon<br>
+          oder nutze die Buttons bzw. die Pfeiltasten.</p>
+        <div class="deck" id="deck" aria-live="polite"></div>
+        <div class="proto-stats" id="proto-stats"></div>
       </div>
+
+      <p class="notice">Prototyp mit erfundenen Beispieldaten – es werden keine Daten gespeichert oder übertragen.</p>
     </div>
   </main>
 
@@ -44,5 +48,6 @@
   </footer>
 
   <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/aktivitys-proto.js"></script>
 </body>
 </html>
