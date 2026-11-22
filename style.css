@@ -379,3 +379,15 @@ code { background: var(--bg-alt); padding: .1rem .3rem; border-radius: 4px; }
 .weather-legend .lg.sun { background: linear-gradient(90deg, #f6b73c, #f39c12); }
 .weather-legend .lg.rain { background: linear-gradient(90deg, #5aa9e6, #1c6fb8); margin-left: .7rem; }
 @media (max-width: 640px) { .weather-legend { display: block; } }
+
+/* Hinweis „Autowaschen möglich“ im Wetter-Widget */
+.carwash {
+  display: flex; align-items: center; justify-content: center; gap: .3rem;
+  margin-top: .2rem; padding: .3rem .4rem; border-radius: 8px;
+  background: #e3f4ea; color: #1b6b2f; font-size: .78rem; font-weight: 700; line-height: 1.2;
+  cursor: help;
+}
+.car-icon { width: 1.15rem; height: 1.15rem; flex: none; }
+@media (max-width: 640px) {
+  .carwash { grid-column: 1 / -1; justify-content: flex-start; margin-top: 0; }
+}
