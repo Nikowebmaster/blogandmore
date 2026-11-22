@@ -20,11 +20,12 @@ let values = new Map();     // vehicleId → Map(attrId → value)
 let extras = [];
 const selection = {};       // aktuelle Auswahl je Ebene
 
-// ---------- Start ----------
-sb = await getClient().catch(() => null);
-if (!sb) {
-  $("fz-loading").outerHTML = notConfiguredHtml;
-} else {
+async function start() {
+  sb = await getClient().catch(() => null);
+  if (!sb) {
+    $("fz-loading").outerHTML = notConfiguredHtml;
+    return;
+  }
   const member = await getCurrentMember().catch(() => null);
   isAdmin = member?.profile.role === "admin";
   buildSelects();
@@ -316,3 +317,6 @@ function setStatus(form, text, type = "") {
   el.textContent = text;
   el.className = "form-status " + type;
 }
+
+// ---------- Start (am Ende, damit alle Funktionen definiert sind) ----------
+start();
