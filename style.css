@@ -167,7 +167,7 @@ a:hover { color: var(--blue-hover); }
 .widget-foot a { color: var(--muted); }
 
 /* Desktop: 5 kompakte Kacheln – Zeile 1: Tag · Symbol · Temperatur, darunter je 1 Zeile Sonne und Regen */
-.weather-days { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .6rem; }
+.weather-days { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .5rem; }
 .wday {
   background: #fff; border-radius: 10px; padding: .5rem .6rem;
   display: grid; gap: .3rem; align-content: start; border: 1px solid var(--bg-alt);
@@ -184,6 +184,7 @@ a:hover { color: var(--blue-hover); }
 .wmetric.sun .wbar span { background: linear-gradient(90deg, #f6b73c, #f39c12); }
 .wmetric.rain .wbar span { background: linear-gradient(90deg, #5aa9e6, #1c6fb8); }
 .wval { font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.wsun { font-size: .72rem; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; line-height: 1.1; }
 
 /* Handy: eine Zeile pro Tag */
 @media (max-width: 640px) {
@@ -195,6 +196,7 @@ a:hover { color: var(--blue-hover); }
   .wday.today { padding: calc(.4rem - 1px) calc(.55rem - 1px); }
   .wmetric { grid-template-columns: minmax(0, 1fr) auto; gap: .3rem; }
   .wlabel { display: none; }
+  .wsun { grid-column: 2 / 4; margin-top: -.25rem; font-size: .68rem; }
 }
 @media (max-width: 380px) {
   .wday { gap: .35rem; padding: .35rem .45rem; }

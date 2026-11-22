@@ -5,8 +5,8 @@ const WEATHER = {
   place: "Wien",
   lat: 48.2085,
   lon: 16.3721,
-  days: 5,          // angezeigte Tage
-  fetchDays: 8,     // geladene Tage (3 mehr, damit die Autowasch-Regel auch für den 5. Tag prüfen kann)
+  days: 6,          // angezeigte Tage
+  fetchDays: 9,     // geladene Tage (3 mehr, damit die Autowasch-Regel auch für den letzten angezeigten Tag prüfen kann)
   cacheMinutes: 30,
 };
 
@@ -29,7 +29,7 @@ const CAR_SVG = `<svg class="car-icon" viewBox="0 0 24 24" aria-hidden="true"><p
 
 const WEATHER_URL =
   `https://api.open-meteo.com/v1/forecast?latitude=${WEATHER.lat}&longitude=${WEATHER.lon}` +
-  `&daily=weather_code,temperature_2m_max,temperature_2m_min,sunshine_duration,precipitation_probability_max,precipitation_sum` +
+  `&daily=weather_code,temperature_2m_max,temperature_2m_min,sunshine_duration,precipitation_probability_max,precipitation_sum,sunrise,sunset` +
   `&timezone=Europe%2FVienna&forecast_days=${WEATHER.fetchDays}`;
 
 // WMO-Wettercodes → Symbol + Text
@@ -57,7 +57,7 @@ function dayLabel(iso, i) {
 }
 
 async function loadWeather() {
-  const key = "weather-cache-v2";
+  const key = "weather-cache-v3";
   try {
     const cached = JSON.parse(localStorage.getItem(key) || "null");
     if (cached && Date.now() - cached.t < WEATHER.cacheMinutes * 60000) return cached;
@@ -99,6 +99,7 @@ async function renderWeather() {
             <span class="wbar"><span style="width:${rain}%"></span></span>
             <span class="wval">${rain} %</span>
           </div>
+          ${d.sunrise?.[i] ? `<div class="wsun" title="Sonnenaufgang / Sonnenuntergang in Wien">🌅 ${d.sunrise[i].slice(11, 16)} · 🌇 ${d.sunset[i].slice(11, 16)}</div>` : ""}
           ${carWashOk(d, i) ? `<div class="carwash" title="Kein Regen, mind. ${CARWASH.minSunHours} h Sonne und die nächsten ${CARWASH.dryDaysAfter} Tage trocken">${CAR_SVG}<span>Autowaschen möglich</span></div>` : ""}
         </div>`;
     }).join("");
