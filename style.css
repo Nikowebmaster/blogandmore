@@ -396,3 +396,42 @@ code { background: var(--bg-alt); padding: .1rem .3rem; border-radius: 4px; }
 @media (max-width: 640px) {
   .carwash { grid-column: 1 / -1; justify-content: flex-start; margin-top: 0; }
 }
+
+/* ===== Garagen-Widget ===== */
+.widget-garage { grid-column: 1 / -1; }
+.garage-list { list-style: none; display: grid; gap: .4rem; }
+.garage {
+  display: flex; align-items: center; justify-content: space-between; gap: .8rem;
+  background: #fff; border: 1px solid var(--bg-alt); border-left: 4px solid #a9aeb6;
+  border-radius: 8px; padding: .45rem .7rem; min-width: 0;
+}
+.garage.g-free { border-left-color: #2bb673; }
+.garage.g-full { border-left-color: #e5484d; opacity: .8; }
+.g-main { min-width: 0; display: grid; gap: .1rem; }
+.g-name { font-weight: 700; font-size: .95rem; }
+.g-name a { color: var(--text); text-decoration: none; }
+.g-name a:hover { color: var(--blue); text-decoration: underline; }
+.g-op { font-weight: 500; font-size: .75rem; color: var(--muted); background: var(--bg); border-radius: 99px; padding: .05rem .45rem; margin-left: .2rem; white-space: nowrap; }
+.g-status { font-size: .85rem; display: flex; align-items: center; gap: .35rem; flex-wrap: wrap; }
+.g-dot { width: .6rem; height: .6rem; border-radius: 50%; background: #a9aeb6; flex: none; }
+.g-free .g-dot { background: #2bb673; }
+.g-full .g-dot { background: #e5484d; }
+.g-free .g-status { color: #1b6b2f; font-weight: 600; }
+.g-full .g-status { color: #a11a1a; font-weight: 600; }
+.g-prices { font-size: .78rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: .1rem .8rem; }
+.g-prices b { font-weight: 600; color: var(--text); }
+.g-side { display: flex; align-items: center; gap: .6rem; flex: none; }
+.g-walk { font-size: .85rem; font-weight: 600; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.g-map {
+  display: grid; place-items: center; width: 2.1rem; height: 2.1rem; border-radius: 50%;
+  background: var(--blue); color: #fff; transition: background .15s, transform .15s;
+}
+.g-map svg { width: 1.2rem; height: 1.2rem; }
+.g-map:hover { background: var(--blue-hover); color: #fff; transform: scale(1.08); }
+
+@media (max-width: 640px) {
+  .garage { align-items: flex-start; padding: .45rem .55rem; gap: .5rem; }
+  .g-side { flex-direction: column-reverse; align-items: flex-end; gap: .3rem; }
+  .g-walk { font-size: .78rem; }
+  .g-map { width: 1.9rem; height: 1.9rem; }
+}

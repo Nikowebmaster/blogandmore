@@ -71,3 +71,13 @@ Die Seite ist nirgends verlinkt und für Suchmaschinen gesperrt: <https://nikowe
 2. Danach [`supabase/fahrzeugdaten-import.sql`](supabase/fahrzeugdaten-import.sql) ausführen (Daten aus der Excel-Datei).
 
 Lesen kann jede:r mit dem Link, **bearbeiten nur der Admin** (Login).
+
+---
+
+## Garagen-Widget (Live-Belegung)
+Die freien Plätze holt die Supabase-Funktion `garage-status` bei WIPARK und Best in Parking ab.
+1. **Edge Functions → Deploy a new function → Via Editor**, Name: **`garage-status`**
+2. Inhalt von [`supabase/functions/garage-status/index.ts`](supabase/functions/garage-status/index.ts) einfügen.
+3. In den Einstellungen der Funktion **„Verify JWT“ ausschalten** (die Funktion liefert nur öffentliche Betreiberdaten) → **Deploy**.
+
+Garagen, Preise und Gehzeiten stehen in [`js/garagen-data.js`](js/garagen-data.js).

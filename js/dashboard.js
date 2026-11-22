@@ -110,3 +110,83 @@ async function renderWeather() {
 }
 
 renderWeather();
+
+// =====================================================================
+// Garagen-Widget: Belegung über die Supabase-Funktion "garage-status"
+// =====================================================================
+import { GARAGES, HOME } from "./garagen-data.js";
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from "./config.js";
+
+const GARAGE_URL = `${SUPABASE_URL}/functions/v1/garage-status`;
+const PIN_SVG = `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>`;
+
+const escG = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const hm = (date) => date.toLocaleTimeString("de-AT", { hour: "2-digit", minute: "2-digit" });
+const mapsLink = (g) =>
+  `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(HOME)}&destination=${encodeURIComponent(g.address)}&travelmode=walking`;
+const walkText = (w) => `${w.min} min · ${w.m >= 1000 ? num(w.m / 1000) + " km" : w.m + " m"}`;
+
+// Live-Status je Garage: { state: "free" | "full" | "unknown", text, time }
+function liveStatus(g, data) {
+  if (!g.live) return { state: "unknown", text: "keine Live-Daten" };
+  if (!data) return { state: "unknown", text: "Live-Daten nicht erreichbar" };
+
+  if (g.live.source === "wipark") {
+    const w = data.wipark?.[g.live.code];
+    const time = data.fetchedAt ? `abgerufen ${hm(new Date(data.fetchedAt))}` : "";
+    if (!w || (w.free == null && w.statusFree == null)) return { state: "unknown", text: "keine Live-Daten" };
+    if (typeof w.free === "number") return w.free > 0
+      ? { state: "free", text: `${w.free} Plätze frei`, time }
+      : { state: "full", text: "besetzt", time };
+    return w.statusFree ? { state: "free", text: "Plätze frei", time } : { state: "full", text: "besetzt", time };
+  }
+
+  if (g.live.source === "bip") {
+    const b = data.bip?.[g.live.id];
+    if (!b || !b.status) return { state: "unknown", text: "keine Live-Daten" };
+    const time = b.timestamp ? `Stand ${hm(new Date(b.timestamp * 1000))}` : "";
+    if (b.status === "vacant") return { state: "free", text: "Plätze frei", time };
+    return { state: "full", text: "besetzt", time };
+  }
+  return { state: "unknown", text: "keine Live-Daten" };
+}
+
+async function loadGarageData() {
+  const res = await fetch(GARAGE_URL, { headers: { apikey: SUPABASE_ANON_KEY } });
+  if (!res.ok) throw new Error("HTTP " + res.status);
+  return res.json();
+}
+
+async function renderGarages() {
+  const list = document.getElementById("garage-list");
+  const foot = document.getElementById("garage-foot");
+  if (!list) return;
+
+  let data = null;
+  try { data = await loadGarageData(); } catch { data = null; }
+
+  const order = { free: 0, unknown: 1, full: 2 };
+  const rows = GARAGES
+    .map((g) => ({ g, s: liveStatus(g, data) }))
+    .sort((a, b) => order[a.s.state] - order[b.s.state] || a.g.walk.m - b.g.walk.m);
+
+  list.innerHTML = rows.map(({ g, s }) => `
+    <li class="garage g-${s.state}">
+      <div class="g-main">
+        <div class="g-name"><a href="${escG(g.url)}" rel="noopener" target="_blank">${escG(g.name)}</a> <span class="g-op">${escG(g.operator)}</span></div>
+        <div class="g-status"><span class="g-dot" aria-hidden="true"></span>${escG(s.text)}${s.time ? ` <span class="muted">· ${escG(s.time)}</span>` : ""}</div>
+        <div class="g-prices">${g.prices.map((p) => `<span><b>${escG(p.label)}:</b> ${escG(p.value)}</span>`).join("")}</div>
+      </div>
+      <div class="g-side">
+        <span class="g-walk" title="Fußweg ab ${escG(HOME)} laut Google Maps">🚶 ${walkText(g.walk)}</span>
+        <a class="g-map" href="${mapsLink(g)}" target="_blank" rel="noopener" title="Fußweg in Google Maps öffnen" aria-label="Fußweg zu ${escG(g.name)} in Google Maps öffnen">${PIN_SVG}</a>
+      </div>
+    </li>`).join("");
+
+  foot.innerHTML = data
+    ? `Freie Garagen zuerst, dann nach Entfernung · aktualisiert ${hm(new Date())} · Preise lt. Betreiber, Stand 22.11.2026`
+    : `Live-Belegung gerade nicht erreichbar – sortiert nach Entfernung · Preise lt. Betreiber, Stand 22.11.2026`;
+}
+
+renderGarages();
+setInterval(renderGarages, 2 * 60 * 1000); // alle 2 Minuten neu laden
