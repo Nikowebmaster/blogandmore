@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="de-AT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fahrzeugdaten – Niko</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="container nav" aria-label="Hauptnavigation">
+      <a href="index.html" class="logo">Niko</a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Menü öffnen">☰</button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Blog</a></li>
+        <li><a href="ueber-mich.html">Über mich</a></li>
+        <li><a href="aktivitys.html">AkTivitys</a></li>
+        <li><a href="index.html#kontakt">Kontakt</a></li>
+        <li><a href="login.html" id="auth-link">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <h1 class="page-title">Fahrzeugdaten</h1>
+      <p id="fz-loading" class="muted">Daten werden geladen …</p>
+
+      <!-- ===== Auswahl ===== -->
+      <section class="panel" id="fz-select-panel">
+        <h2>Fahrzeug auswählen</h2>
+        <div class="fz-selects" id="fz-selects"></div>
+      </section>
+
+      <!-- ===== Ergebnis ===== -->
+      <section class="panel hidden" id="fz-result">
+        <div class="fz-result-head">
+          <h2 id="fz-result-title"></h2>
+          <button class="btn btn-outline hidden" id="fz-edit-current">Bearbeiten</button>
+        </div>
+        <table class="table fz-data"><tbody id="fz-result-body"></tbody></table>
+      </section>
+
+      <!-- ===== Zusatzgewichte ===== -->
+      <section class="panel hidden" id="fz-extras">
+        <h2>Faustregeln: Zusatzgewichte</h2>
+        <table class="table fz-data"><tbody id="fz-extras-body"></tbody></table>
+      </section>
+
+      <!-- ===== Verwaltung ===== -->
+      <p class="notice hidden" id="fz-login-hint">Zum Hinzufügen, Bearbeiten und Löschen bitte als Admin
+        <a href="login.html?next=fahrzeugdaten.html">anmelden</a>.</p>
+
+      <div id="fz-admin" class="hidden">
+        <section class="panel admin" id="fz-form-panel">
+          <h2><span id="fz-form-title">Neue Variante anlegen</span> <span class="badge">Admin</span></h2>
+          <form class="form wide" id="fz-form" autocomplete="off">
+            <input type="hidden" name="id">
+            <div class="fz-key-fields" id="fz-key-fields"></div>
+            <h3 class="fz-sub">Daten</h3>
+            <div class="fz-attr-fields" id="fz-attr-fields"></div>
+            <div class="row">
+              <button type="submit" class="btn" id="fz-save">Speichern</button>
+              <button type="button" class="btn btn-outline hidden" id="fz-save-copy">Als neue Variante speichern</button>
+              <button type="button" class="btn btn-outline" id="fz-reset">Formular leeren</button>
+            </div>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="panel admin">
+          <h2>Felder verwalten <span class="badge">Admin</span></h2>
+          <p class="muted small">Neue Felder stehen sofort bei allen Varianten zur Verfügung. Die Reihenfolge bestimmt die Anzeige.</p>
+          <div id="fz-attr-list"></div>
+          <form class="form wide fz-new-attr" id="fz-attr-form" autocomplete="off">
+            <div class="row">
+              <label class="grow">Neues Feld <input type="text" name="name" required maxlength="80" placeholder="z. B. Leistung"></label>
+              <label>Einheit <input type="text" name="unit" maxlength="20" placeholder="z. B. PS" size="8"></label>
+              <button type="submit" class="btn">Feld hinzufügen</button>
+            </div>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="panel admin">
+          <h2>Alle Varianten <span class="badge">Admin</span></h2>
+          <div id="fz-all"></div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>© <span class="year"></span> Niko</span>
+      <span><a href="offenlegung.html">Impressum / Offenlegung</a> · <a href="datenschutz.html">Datenschutz</a></span>
+    </div>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/fahrzeugdaten.js"></script>
+</body>
+</html>

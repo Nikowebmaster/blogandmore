@@ -62,3 +62,12 @@ Nach 1–2 Minuten ist die Seite unter <https://nikowebmaster.github.io/blogandm
 - **Mitglied anlegen (nur Admin):** Im Mitgliederbereich unten das Formular ausfüllen (Vorname, Nachname, Username, Passwort, Über mich, Geburtsdatum, Wohnort). Das Passwort dann persönlich an das Mitglied weitergeben.
 - **Mitglied entfernen (nur Admin):** In der Mitgliederliste auf „Entfernen“ klicken. Das löscht auch alle Beiträge dieses Mitglieds.
 - **Neue Kategorie:** in `js/config.js` (Liste `CATEGORIES`) **und** in der Datenbank-Tabelle `categories` ergänzen.
+
+---
+
+## Fahrzeugdaten (versteckte Seite `fahrzeugdaten.html`)
+Die Seite ist nirgends verlinkt und für Suchmaschinen gesperrt: <https://nikowebmaster.github.io/blogandmore/fahrzeugdaten.html>
+1. Im **SQL Editor** [`supabase/fahrzeugdaten-schema.sql`](supabase/fahrzeugdaten-schema.sql) ausführen (Tabellen + Rechte).
+2. Danach [`supabase/fahrzeugdaten-import.sql`](supabase/fahrzeugdaten-import.sql) ausführen (Daten aus der Excel-Datei).
+
+Lesen kann jede:r mit dem Link, **bearbeiten nur der Admin** (Login).

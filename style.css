@@ -211,6 +211,22 @@ a:hover { color: var(--blue-hover); }
 .link-btn.danger { color: #a11a1a; }
 code { background: var(--bg-alt); padding: .1rem .3rem; border-radius: 4px; }
 
+/* ===== Fahrzeugdaten ===== */
+.fz-selects { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem; }
+.fz-selects label { font-weight: 600; display: grid; gap: .3rem; font-size: .92rem; }
+.fz-selects select, .fz-in {
+  font: inherit; padding: .55rem .7rem; border: 1px solid #a9aeb6; border-radius: 6px; background: #fff; color: var(--text); width: 100%;
+}
+.fz-selects select:disabled { background: var(--bg); color: var(--muted); }
+.fz-result-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+.fz-result-head h2 { margin: 0; }
+.fz-data th { background: var(--surface); color: var(--text); width: 55%; font-weight: 600; }
+.fz-data td { font-variant-numeric: tabular-nums; }
+.fz-key-fields, .fz-attr-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+.fz-sub { color: var(--blue); margin-top: .5rem; }
+.fz-attr-table td { vertical-align: middle; }
+.fz-new-attr { margin-top: 1rem; }
+
 /* ===== Mobil ===== */
 @media (max-width: 720px) {
   .table thead { display: none; }

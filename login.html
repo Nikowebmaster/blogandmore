@@ -55,7 +55,11 @@
     const status = form.querySelector(".form-status");
     const setStatus = (t, type = "") => { status.textContent = t; status.className = "form-status " + type; };
 
-    getCurrentMember().then((m) => { if (m) location.href = "mitglieder.html"; }).catch(() => {});
+    // Rücksprung nach dem Login (nur eigene Seiten erlaubt, z. B. ?next=fahrzeugdaten.html)
+    const nextParam = new URLSearchParams(location.search).get("next") || "";
+    const target = /^[a-z0-9_-]+\.html$/i.test(nextParam) ? nextParam : "mitglieder.html";
+
+    getCurrentMember().then((m) => { if (m) location.href = target; }).catch(() => {});
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -83,7 +87,7 @@
         await sb.auth.signOut();
         return setStatus("Anmeldung ok, aber zu diesem Konto gibt es kein Mitgliedsprofil. Bitte den Administrator kontaktieren.", "err");
       }
-      location.href = "mitglieder.html";
+      location.href = target;
     });
   </script>
 </body>
