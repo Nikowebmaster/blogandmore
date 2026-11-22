@@ -23,6 +23,7 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
+  overflow-wrap: break-word;   /* lange Wörter/Links umbrechen statt die Seite zu verbreitern */
 }
 
 img { max-width: 100%; display: block; }
