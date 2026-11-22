@@ -2,6 +2,50 @@
 import { FORM_ENDPOINT } from "./config.js";
 import { getCurrentMember } from "./supabase.js";
 
+// ===== Markenzeichen: in "AkTivitys" A und T weiß auf rot =====
+// Läuft über alle Texte der Seite – auch über Inhalte, die später geladen werden (z. B. Blog-Beiträge).
+const BRAND = /AkTivitys/gi;
+const SKIP = new Set(["SCRIPT", "STYLE", "TEXTAREA", "INPUT", "OPTION", "SELECT", "TITLE", "NOSCRIPT"]);
+
+function brandify(root) {
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode: (n) => {
+      const p = n.parentElement;
+      if (!p || SKIP.has(p.tagName) || p.closest(".brand, [contenteditable]")) return NodeFilter.FILTER_REJECT;
+      BRAND.lastIndex = 0;
+      return BRAND.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+    },
+  });
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+
+  for (const node of nodes) {
+    const text = node.nodeValue;
+    const frag = document.createDocumentFragment();
+    let last = 0;
+    BRAND.lastIndex = 0;
+    for (const m of text.matchAll(BRAND)) {
+      frag.append(text.slice(last, m.index));
+      const w = m[0];
+      const brand = document.createElement("span");
+      brand.className = "brand";
+      brand.innerHTML = `<span class="brand-at">${w[0]}</span>${w[1]}<span class="brand-at">${w[2]}</span>${w.slice(3)}`;
+      frag.append(brand);
+      last = m.index + w.length;
+    }
+    frag.append(text.slice(last));
+    node.replaceWith(frag);
+  }
+}
+
+brandify(document.body);
+new MutationObserver((changes) => {
+  for (const c of changes) c.addedNodes.forEach((n) => {
+    if (n.nodeType === Node.ELEMENT_NODE) brandify(n);
+    else if (n.nodeType === Node.TEXT_NODE && n.parentElement) brandify(n.parentElement);
+  });
+}).observe(document.body, { childList: true, subtree: true });
+
 // Jahr im Footer
 document.querySelectorAll(".year").forEach((el) => (el.textContent = new Date().getFullYear()));
 
