@@ -9,6 +9,16 @@ const LEVELS = [
   { key: "drivetrain", label: "Antriebsart" },
 ];
 
+// Erklärungen, die beim Darüberfahren (bzw. Antippen) an Feldern erscheinen
+const ATTR_HINTS = [
+  { match: /\(real\)/i, text: "Mit realistischer, guter Ausstattung" },
+];
+const hintFor = (name) => ATTR_HINTS.find((h) => h.match.test(name))?.text;
+const hintHtml = (name) => {
+  const t = hintFor(name);
+  return t ? ` <span class="fz-hint" tabindex="0" role="note" aria-label="${esc(t)}" data-tip="${esc(t)}">i</span>` : "";
+};
+
 const $ = (id) => document.getElementById(id);
 const collator = new Intl.Collator("de", { numeric: true, sensitivity: "base" });
 
@@ -114,7 +124,7 @@ function renderResult() {
   $("fz-result-title").textContent = `${v.brand} ${v.model} · ${v.body} · ${v.engine} · ${v.drivetrain}`;
   const vals = values.get(v.id) ?? new Map();
   $("fz-result-body").innerHTML = attrs.map((a) =>
-    `<tr><th scope="row">${esc(a.name)}</th><td>${fmt(vals.get(a.id), a.unit)}</td></tr>`).join("");
+    `<tr><th scope="row">${esc(a.name)}${hintHtml(a.name)}</th><td>${fmt(vals.get(a.id), a.unit)}</td></tr>`).join("");
   const btn = $("fz-edit-current");
   btn.classList.toggle("hidden", !isAdmin);
   btn.onclick = () => editVehicle(v.id);
@@ -169,7 +179,7 @@ function renderAttrFields() {
   // bereits eingetippte Werte beim Neuaufbau behalten
   const keep = Object.fromEntries([...box.querySelectorAll("input")].map((i) => [i.dataset.attr, i.value]));
   box.innerHTML = attrs.map((a) => `
-    <label>${esc(a.name)}${a.unit ? ` <span class="muted small">(${esc(a.unit)})</span>` : ""}
+    <label>${esc(a.name)}${hintHtml(a.name)}${a.unit ? ` <span class="muted small">(${esc(a.unit)})</span>` : ""}
       <input type="text" data-attr="${a.id}" maxlength="200" inputmode="decimal" value="${esc(keep[a.id] ?? "")}">
     </label>`).join("");
 }
