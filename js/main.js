@@ -46,6 +46,25 @@ new MutationObserver((changes) => {
   });
 }).observe(document.body, { childList: true, subtree: true });
 
+// ===== Blog-Kategorien als Dropdown (Handy-Ansicht) =====
+// Baut aus den Kategorie-Links ein <select>; per CSS wird am Handy nur das Dropdown gezeigt.
+document.querySelectorAll(".side-cats").forEach((nav) => {
+  const select = document.createElement("select");
+  select.className = "cat-select";
+  select.setAttribute("aria-label", "Kategorie wählen");
+  nav.before(select);
+
+  const sync = () => {
+    const links = [...nav.querySelectorAll("a")];
+    select.replaceChildren(...links.map((a) =>
+      new Option(a.textContent.trim(), a.getAttribute("href"), false, a.classList.contains("active"))));
+  };
+  sync();
+  new MutationObserver(sync).observe(nav, { childList: true, subtree: true, attributes: true, attributeFilter: ["class"] });
+
+  select.addEventListener("change", () => { location.href = select.value; });
+});
+
 // Jahr im Footer
 document.querySelectorAll(".year").forEach((el) => (el.textContent = new Date().getFullYear()));
 
