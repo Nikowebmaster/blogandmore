@@ -81,3 +81,10 @@ Die freien Plätze holt die Supabase-Funktion `garage-status` bei WIPARK und Bes
 3. In den Einstellungen der Funktion **„Verify JWT“ ausschalten** (die Funktion liefert nur öffentliche Betreiberdaten) → **Deploy**.
 
 Garagen, Preise und Gehzeiten stehen in [`js/garagen-data.js`](js/garagen-data.js).
+
+### Garagenpreise
+Die Tagespreise werden **jeden Montag automatisch** von den Betreiberseiten gelesen
+(GitHub Action [`garage-prices.yml`](.github/workflows/garage-prices.yml) → `data/garage-prices.json`).
+Sofort aktualisieren: im GitHub-Repository **Actions → Garagenpreise aktualisieren → Run workflow**.
+Findet das Skript einen Preis nicht (z. B. weil der Betreiber seine Seite umgebaut hat), bleibt der alte Preis stehen
+und der Fehler steht in `data/garage-prices.json` unter `errors`.

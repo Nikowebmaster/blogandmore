@@ -12,7 +12,7 @@ Persönliche Website von Niko (Wien, Österreich). Kommunikation mit Niko **auf 
 ## Seiten
 | Datei | Inhalt |
 |---|---|
-| `index.html` | Startseite: oben **Dashboard** mit Widgets (`js/dashboard.js`; Wetter Wien via Open-Meteo, ohne API-Key, 30 min Cache; Garagen-Widget mit Daten in `js/garagen-data.js`, Live-Belegung über Edge Function `garage-status`), darunter Blog (Kategorien links bzw. Dropdown am Handy) + Kontaktformular |
+| `index.html` | Startseite: oben **Dashboard** mit Widgets (`js/dashboard.js`; Wetter Wien via Open-Meteo, ohne API-Key, 30 min Cache; Garagen-Widget mit Daten in `js/garagen-data.js`, Live-Belegung über Edge Function `garage-status`; Tagespreise wöchentlich per GitHub Action `garage-prices.yml` → `data/garage-prices.json`, Auslese-Regeln in `tools/price-parsers.mjs`), darunter Blog (Kategorien links bzw. Dropdown am Handy) + Kontaktformular |
 | `blog.html` | Blog-Übersicht, `?kategorie=…`, Einzelbeitrag `?post=<id>` |
 | `ueber-mich.html` | Visitenkarte |
 | `aktivitys.html` | Projekt AkTivitys |

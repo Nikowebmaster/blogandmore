@@ -442,7 +442,7 @@ code { background: var(--bg-alt); padding: .1rem .3rem; border-radius: 4px; }
   .g-day { grid-area: day; text-align: right; font-size: .78rem; }
   .g-walk { grid-area: walk; font-size: .78rem; }
   .g-map { grid-area: map; }
-  .g-day .muted { display: none; }   /* bmove-Preis am Handy ausblenden, sonst zu breit */
+  .garage .g-note { font-size: .65rem; padding: 0 .3rem; }
 }
 @media (max-width: 760px) {
   .g-op, .g-time-l { display: none; }
@@ -453,3 +453,4 @@ code { background: var(--bg-alt); padding: .1rem .3rem; border-radius: 4px; }
   .g-status, .g-day, .g-walk { font-size: .74rem; }
   .g-status { white-space: normal; flex-wrap: wrap; }
 }
+.g-note { font-size: .7rem; font-weight: 700; color: var(--blue); background: #e6edf7; border-radius: 99px; padding: .02rem .4rem; margin-left: .2rem; }

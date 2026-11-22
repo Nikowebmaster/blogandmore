@@ -157,11 +157,25 @@ async function loadGarageData() {
   return res.json();
 }
 
+// Tagespreise (wöchentlich automatisch aktualisiert, siehe tools/update-garage-prices.mjs)
+let priceFile = null;
+async function loadPrices() {
+  if (priceFile) return priceFile;
+  try {
+    const res = await fetch("data/garage-prices.json", { cache: "no-cache" });
+    if (res.ok) priceFile = await res.json();
+  } catch {}
+  return priceFile ?? { prices: {} };
+}
+const dateAT = (iso) => new Date(iso).toLocaleDateString("de-AT", { day: "2-digit", month: "2-digit", year: "numeric" });
+
 async function renderGarages() {
   const list = document.getElementById("garage-list");
   const foot = document.getElementById("garage-foot");
   if (!list) return;
 
+  const pf = await loadPrices();
+  const priceStand = pf.updatedAt ? `Tagespreise lt. Betreiber, Stand ${dateAT(pf.updatedAt)}` : "Tagespreise lt. Betreiber";
   let data = null;
   try { data = await loadGarageData(); } catch { data = null; }
 
@@ -174,14 +188,14 @@ async function renderGarages() {
     <li class="garage g-${s.state}">
       <div class="g-name"><a href="${escG(g.url)}" rel="noopener" target="_blank">${escG(g.name)}</a> <span class="g-op">${escG(g.operator)}</span></div>
       <div class="g-status"><span class="g-dot" aria-hidden="true"></span>${escG(s.text)}${s.time ? ` <span class="muted g-time">· <span class="g-time-l">${escG(s.time.replace(/\s*\d\d:\d\d$/, ""))} </span>${escG((s.time.match(/\d\d:\d\d$/) || [""])[0])}</span>` : ""}</div>
-      <div class="g-day" title="Tagespreis"><b>${escG(g.day)}</b>${g.dayMember ? ` <span class="muted">(${escG(g.dayMember)})</span>` : ""}<span class="g-day-l"> /Tag</span></div>
+      <div class="g-day" title="Tagespreis"><b>${escG(pf.prices?.[g.id] ?? g.day)}</b>${g.dayNote ? ` <span class="g-note">${escG(g.dayNote)}</span>` : ""}<span class="g-day-l"> /Tag</span></div>
       <span class="g-walk" title="Fußweg ab ${escG(HOME)} laut Google Maps">🚶 ${walkText(g.walk)}</span>
       <a class="g-map" href="${mapsLink(g)}" target="_blank" rel="noopener" title="Fußweg in Google Maps öffnen" aria-label="Fußweg zu ${escG(g.name)} in Google Maps öffnen">${PIN_SVG}</a>
     </li>`).join("");
 
   foot.innerHTML = data
-    ? `Nach Entfernung, volle Garagen zuletzt · aktualisiert ${hm(new Date())} · Tagespreise lt. Betreiber, Stand 22.11.2026`
-    : `Live-Belegung gerade nicht erreichbar – sortiert nach Entfernung · Tagespreise lt. Betreiber, Stand 22.11.2026`;
+    ? `Nach Entfernung, volle Garagen zuletzt · aktualisiert ${hm(new Date())} · ${priceStand}`
+    : `Live-Belegung gerade nicht erreichbar – sortiert nach Entfernung · ${priceStand}`;
 }
 
 renderGarages();

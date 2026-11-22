@@ -1,0 +1,5 @@
+{
+  "private": true,
+  "type": "module",
+  "description": "Nur für die Hilfsskripte in tools/ (z. B. wöchentliche Garagenpreise). Die Website selbst braucht keine Pakete."
+}
