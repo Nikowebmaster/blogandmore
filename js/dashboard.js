@@ -165,7 +165,7 @@ async function renderGarages() {
   let data = null;
   try { data = await loadGarageData(); } catch { data = null; }
 
-  const order = { free: 0, unknown: 1, full: 2 };
+  const order = { free: 0, unknown: 0, full: 1 }; // freie + ohne Live-Daten nach Entfernung, volle zuletzt
   const rows = GARAGES
     .map((g) => ({ g, s: liveStatus(g, data) }))
     .sort((a, b) => order[a.s.state] - order[b.s.state] || a.g.walk.m - b.g.walk.m);
@@ -184,7 +184,7 @@ async function renderGarages() {
     </li>`).join("");
 
   foot.innerHTML = data
-    ? `Freie Garagen zuerst, dann nach Entfernung · aktualisiert ${hm(new Date())} · Preise lt. Betreiber, Stand 22.11.2026`
+    ? `Nach Entfernung, volle Garagen zuletzt · aktualisiert ${hm(new Date())} · Preise lt. Betreiber, Stand 22.11.2026`
     : `Live-Belegung gerade nicht erreichbar – sortiert nach Entfernung · Preise lt. Betreiber, Stand 22.11.2026`;
 }
 
