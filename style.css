@@ -159,43 +159,48 @@ a:hover { color: var(--blue-hover); }
 .dash-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 1.5rem; }
 .widget {
   background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow);
-  padding: 1.2rem 1.3rem 1rem; border-top: 4px solid var(--blue); min-width: 0;
+  padding: .9rem 1rem .7rem; border-top: 4px solid var(--blue); min-width: 0;
 }
 .widget-weather { grid-column: 1 / -1; }
-.widget-head h2 { font-size: 1.15rem; color: var(--blue); margin-bottom: 1rem; }
-.widget-foot { margin-top: .9rem; font-size: .8rem; color: var(--muted); }
+.widget-head h2 { font-size: 1.05rem; color: var(--blue); margin-bottom: .6rem; }
+.widget-foot { margin-top: .5rem; font-size: .75rem; color: var(--muted); }
 .widget-foot a { color: var(--muted); }
 
-.weather-days { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .8rem; }
+/* Desktop: 5 kompakte Kacheln – Zeile 1: Tag · Symbol · Temperatur, darunter je 1 Zeile Sonne und Regen */
+.weather-days { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .6rem; }
 .wday {
-  background: #fff; border-radius: 10px; padding: .8rem .7rem; text-align: center;
-  display: grid; gap: .35rem; align-content: start; border: 1px solid var(--bg-alt);
+  background: #fff; border-radius: 10px; padding: .5rem .6rem;
+  display: grid; gap: .3rem; align-content: start; border: 1px solid var(--bg-alt);
 }
-.wday.today { border: 2px solid var(--blue); }
-.wday-name { font-weight: 700; color: var(--blue); }
-.wday-icon { font-size: 2rem; line-height: 1.2; }
-.wday-temp { font-size: 1.05rem; }
-.wmetric { display: grid; grid-template-columns: 1fr; gap: .15rem; font-size: .82rem; text-align: left; }
-.wlabel { color: var(--muted); }
-.wbar { height: 7px; background: var(--bg-alt); border-radius: 99px; overflow: hidden; }
+.wday.today { border: 2px solid var(--blue); padding: calc(.5rem - 1px) calc(.6rem - 1px); }
+.wday-top { display: flex; align-items: center; gap: .35rem; white-space: nowrap; }
+.wday-name { font-weight: 700; color: var(--blue); font-size: .9rem; }
+.wday-icon { font-size: 1.3rem; line-height: 1; }
+.wday-temp { font-size: .9rem; margin-left: auto; }
+.wmetric { display: grid; grid-template-columns: 1.1rem minmax(0, 1fr) 2.7rem; align-items: center; gap: .35rem; font-size: .8rem; }
+.wlabel { text-align: center; line-height: 1; }
+.wbar { height: 6px; background: var(--bg-alt); border-radius: 99px; overflow: hidden; }
 .wbar span { display: block; height: 100%; border-radius: 99px; }
 .wmetric.sun .wbar span { background: linear-gradient(90deg, #f6b73c, #f39c12); }
 .wmetric.rain .wbar span { background: linear-gradient(90deg, #5aa9e6, #1c6fb8); }
-.wval { font-weight: 700; font-variant-numeric: tabular-nums; }
+.wval { font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
 
+/* Handy: eine Zeile pro Tag */
 @media (max-width: 640px) {
-  .weather-days { grid-template-columns: 1fr; gap: .5rem; }
+  .weather-days { grid-template-columns: 1fr; gap: .35rem; }
   .wday {
-    grid-template-columns: 4.6rem 2.2rem 3.6rem 1fr 1fr; align-items: center;
-    text-align: left; padding: .55rem .7rem; gap: .5rem;
+    grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center; padding: .4rem .55rem; gap: .5rem;
   }
-  .wday-name { font-size: .9rem; }
-  .wday-icon { font-size: 1.5rem; }
-  .wday-temp { font-size: .95rem; }
+  .wday.today { padding: calc(.4rem - 1px) calc(.55rem - 1px); }
+  .wmetric { grid-template-columns: minmax(0, 1fr) auto; gap: .3rem; }
   .wlabel { display: none; }
 }
 @media (max-width: 380px) {
-  .wday { grid-template-columns: 3.9rem 1.8rem 3.2rem 1fr 1fr; gap: .35rem; padding: .5rem; }
+  .wday { gap: .35rem; padding: .35rem .45rem; }
+  .wday-name, .wday-temp, .wmetric { font-size: .8rem; }
+  .wday-icon { font-size: 1.1rem; }
+  .wday-top { gap: .25rem; }
 }
 
 .blog-title { color: var(--blue); font-size: 2rem; line-height: 1.2; margin-bottom: .3rem; }
@@ -374,7 +379,7 @@ code { background: var(--bg-alt); padding: .1rem .3rem; border-radius: 4px; }
 }
 
 /* Wetter-Legende (nur Handy, dort sind die Beschriftungen ausgeblendet) */
-.weather-legend { display: none; font-size: .82rem; color: var(--muted); margin: -.5rem 0 .8rem; }
+.weather-legend { display: none; font-size: .78rem; color: var(--muted); margin: -.3rem 0 .5rem; }
 .weather-legend .lg { display: inline-block; width: 1.4rem; height: 7px; border-radius: 99px; vertical-align: middle; margin: 0 .2rem 0 .1rem; }
 .weather-legend .lg.sun { background: linear-gradient(90deg, #f6b73c, #f39c12); }
 .weather-legend .lg.rain { background: linear-gradient(90deg, #5aa9e6, #1c6fb8); margin-left: .7rem; }
@@ -383,7 +388,7 @@ code { background: var(--bg-alt); padding: .1rem .3rem; border-radius: 4px; }
 /* Hinweis „Autowaschen möglich“ im Wetter-Widget */
 .carwash {
   display: flex; align-items: center; justify-content: center; gap: .3rem;
-  margin-top: .2rem; padding: .3rem .4rem; border-radius: 8px;
+  margin-top: .1rem; padding: .2rem .35rem; border-radius: 6px;
   background: #e3f4ea; color: #1b6b2f; font-size: .78rem; font-weight: 700; line-height: 1.2;
   cursor: help;
 }

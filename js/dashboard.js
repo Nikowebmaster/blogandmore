@@ -84,16 +84,18 @@ async function renderWeather() {
       const mm = d.precipitation_sum[i] ?? 0;
       return `
         <div class="wday${i === 0 ? " today" : ""}">
-          <div class="wday-name">${dayLabel(iso, i)}</div>
-          <div class="wday-icon" title="${text}" aria-label="${text}">${icon}</div>
-          <div class="wday-temp"><strong>${Math.round(d.temperature_2m_max[i])}°</strong> <span class="muted">${Math.round(d.temperature_2m_min[i])}°</span></div>
+          <div class="wday-top">
+            <span class="wday-name">${dayLabel(iso, i)}</span>
+            <span class="wday-icon" title="${text}" aria-label="${text}">${icon}</span>
+            <span class="wday-temp"><strong>${Math.round(d.temperature_2m_max[i])}°</strong> <span class="muted">${Math.round(d.temperature_2m_min[i])}°</span></span>
+          </div>
           <div class="wmetric sun" title="Sonnenstunden">
-            <span class="wlabel">☀ Sonne</span>
+            <span class="wlabel" aria-label="Sonne">☀</span>
             <span class="wbar"><span style="width:${Math.min(100, (sunH / 10) * 100)}%"></span></span>
             <span class="wval">${num(sunH)} h</span>
           </div>
           <div class="wmetric rain" title="Regenwahrscheinlichkeit${mm ? `, ca. ${num(mm)} mm` : ""}">
-            <span class="wlabel">💧 Regen</span>
+            <span class="wlabel" aria-label="Regen">💧</span>
             <span class="wbar"><span style="width:${rain}%"></span></span>
             <span class="wval">${rain} %</span>
           </div>
