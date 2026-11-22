@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="de-AT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projekt AkTivitys – Niko Vöhr</title>
+  <meta name="description" content="AkTivitys – das Projekt von Niko Vöhr.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="container nav" aria-label="Hauptnavigation">
+      <a href="index.html" class="logo">Niko Vöhr</a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Menü öffnen">☰</button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Blog</a></li>
+        <li><a href="ueber-mich.html">Über mich</a></li>
+        <li><a href="aktivitys.html" aria-current="page">AkTivitys</a></li>
+        <li><a href="index.html#kontakt">Kontakt</a></li>
+        <li><a href="login.html" id="auth-link">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <h1 class="page-title">Projekt: AkTivitys</h1>
+      <p class="lead">Mein aktuelles Herzensprojekt.</p>
+      <div class="project">
+        <h3>AkTivitys</h3>
+        <p>[Worum geht es bei AkTivitys? Idee, Ziel, für wen ist es gedacht?]</p>
+        <div class="grid">
+          <article class="tile"><h3>Die Idee</h3><p>[Kurzbeschreibung]</p></article>
+          <article class="tile"><h3>Aktueller Stand</h3><p>[Was ist schon umgesetzt?]</p></article>
+          <article class="tile"><h3>Nächste Schritte</h3><p>[Was ist geplant?]</p></article>
+        </div>
+      </div>
+
+      <h2 class="subhead">Neuigkeiten zu AkTivitys</h2>
+      <div id="aktivitys-posts" class="post-list"><p class="muted">Beiträge werden geladen …</p></div>
+      <p><a class="btn" href="blog.html?kategorie=aktivitys">Alle Beiträge zu AkTivitys</a></p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>© <span class="year"></span> Niko Vöhr</span>
+      <span><a href="offenlegung.html">Impressum / Offenlegung</a> · <a href="datenschutz.html">Datenschutz</a></span>
+    </div>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+  <script type="module">
+    import { renderPostList } from "./js/blog.js";
+    renderPostList(document.getElementById("aktivitys-posts"), { category: "aktivitys", limit: 3 });
+  </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de-AT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Über mich – Niko Vöhr</title>
+  <meta name="description" content="Über Niko Vöhr aus Wien: Autos, Investments und Fitness.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="container nav" aria-label="Hauptnavigation">
+      <a href="index.html" class="logo">Niko Vöhr</a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Menü öffnen">☰</button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Blog</a></li>
+        <li><a href="ueber-mich.html" aria-current="page">Über mich</a></li>
+        <li><a href="aktivitys.html">AkTivitys</a></li>
+        <li><a href="index.html#kontakt">Kontakt</a></li>
+        <li><a href="login.html" id="auth-link">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="card">
+          <div class="avatar" aria-hidden="true">NV</div>
+          <div>
+            <h1>Niko Vöhr</h1>
+            <p class="intro">Mein Name ist Niko und ich beschäftige mich mit
+              <a href="blog.html?kategorie=autos">Autos</a>,
+              <a href="blog.html?kategorie=investment">Investments</a> und
+              <a href="blog.html?kategorie=fitness">Fitness</a>.</p>
+            <ul>
+              <li>📍 Wien, Österreich</li>
+              <li>✉️ <a href="index.html#kontakt">Kontakt über das Formular</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>© <span class="year"></span> Niko Vöhr</span>
+      <span><a href="offenlegung.html">Impressum / Offenlegung</a> · <a href="datenschutz.html">Datenschutz</a></span>
+    </div>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

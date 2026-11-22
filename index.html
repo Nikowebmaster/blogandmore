@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Niko Vöhr – Persönliche Website</title>
+  <title>Niko Vöhr – Blog</title>
   <meta name="description" content="Persönliche Website von Niko Vöhr aus Wien: Blog über Autos, Investments und Fitness sowie das Projekt AkTivitys.">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -14,8 +14,9 @@
       <a href="index.html" class="logo">Niko Vöhr</a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Menü öffnen">☰</button>
       <ul class="nav-links" id="nav-links">
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="index.html#aktivitys">AkTivitys</a></li>
+        <li><a href="index.html">Blog</a></li>
+        <li><a href="ueber-mich.html">Über mich</a></li>
+        <li><a href="aktivitys.html">AkTivitys</a></li>
         <li><a href="index.html#kontakt">Kontakt</a></li>
         <li><a href="login.html" id="auth-link">Login</a></li>
       </ul>
@@ -23,57 +24,25 @@
   </header>
 
   <main>
-    <!-- ===== Visitenkarte ===== -->
-    <section class="hero" id="start">
+    <!-- ===== Blog (Hauptthema) ===== -->
+    <section class="blog-hero">
       <div class="container">
-        <div class="card">
-          <div class="avatar" aria-hidden="true">NV</div>
-          <div>
-            <h1>Niko Vöhr</h1>
-            <p class="intro">Mein Name ist Niko und ich beschäftige mich mit
-              <a href="blog.html?kategorie=autos">Autos</a>,
-              <a href="blog.html?kategorie=investment">Investments</a> und
-              <a href="blog.html?kategorie=fitness">Fitness</a>.</p>
-            <ul>
-              <li>📍 Wien, Österreich</li>
-              <li>✉️ <a href="#kontakt">Kontakt über das Formular</a></li>
-            </ul>
-          </div>
-        </div>
+        <h1>Blog</h1>
+        <p class="lead">Beiträge über Autos, Investments und Fitness – von mir und den Mitgliedern.</p>
+        <nav class="filters" aria-label="Kategorien">
+          <a class="chip active" href="index.html">Neueste</a>
+          <a class="chip" href="blog.html?kategorie=autos">Autos</a>
+          <a class="chip" href="blog.html?kategorie=investment">Investment</a>
+          <a class="chip" href="blog.html?kategorie=fitness">Fitness</a>
+          <a class="chip" href="blog.html?kategorie=aktivitys">AkTivitys</a>
+        </nav>
       </div>
     </section>
 
-    <!-- ===== Blog-Kategorien ===== -->
     <section class="section" id="blog">
       <div class="container">
-        <h2>Blog</h2>
-        <p class="lead">Beiträge von mir und den Mitgliedern – sortiert nach Themen.</p>
-        <div class="grid">
-          <a class="tile tile-link" href="blog.html?kategorie=autos"><h3>Autos</h3><p>Fahrzeuge, Projekte, Ausfahrten</p></a>
-          <a class="tile tile-link" href="blog.html?kategorie=investment"><h3>Investment</h3><p>Geld anlegen, Strategien, Lesenswertes</p></a>
-          <a class="tile tile-link" href="blog.html?kategorie=fitness"><h3>Fitness</h3><p>Training, Ernährung, Ausgleich</p></a>
-        </div>
-
-        <h3 class="subhead">Neueste Beiträge</h3>
         <div id="latest-posts" class="post-list"><p class="muted">Beiträge werden geladen …</p></div>
         <p><a class="btn" href="blog.html">Alle Beiträge</a></p>
-      </div>
-    </section>
-
-    <!-- ===== Projekt AkTivitys ===== -->
-    <section class="section" id="aktivitys">
-      <div class="container">
-        <h2>Projekt: AkTivitys</h2>
-        <p class="lead">Mein aktuelles Herzensprojekt.</p>
-        <div class="project">
-          <h3>AkTivitys</h3>
-          <p>[Worum geht es bei AkTivitys? Idee, Ziel, für wen ist es gedacht?]</p>
-          <div class="grid">
-            <article class="tile"><h3>Die Idee</h3><p>[Kurzbeschreibung]</p></article>
-            <article class="tile"><h3>Aktueller Stand</h3><p>[Was ist schon umgesetzt?]</p></article>
-            <article class="tile"><h3>Neuigkeiten</h3><p><a href="blog.html?kategorie=aktivitys">Zu den Blog-Beiträgen über AkTivitys</a></p></article>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -115,7 +84,7 @@
   <script type="module" src="js/main.js"></script>
   <script type="module">
     import { renderPostList } from "./js/blog.js";
-    renderPostList(document.getElementById("latest-posts"), { limit: 3 });
+    renderPostList(document.getElementById("latest-posts"), { limit: 10 });
   </script>
 </body>
 </html>
