@@ -29,20 +29,25 @@
       <div class="container">
         <h1>Blog</h1>
         <p class="lead">Beiträge über Autos, Investments und Fitness – von mir und den Mitgliedern.</p>
-        <nav class="filters" aria-label="Kategorien">
-          <a class="chip active" href="index.html">Neueste</a>
-          <a class="chip" href="blog.html?kategorie=autos">Autos</a>
-          <a class="chip" href="blog.html?kategorie=investment">Investment</a>
-          <a class="chip" href="blog.html?kategorie=fitness">Fitness</a>
-          <a class="chip" href="blog.html?kategorie=aktivitys">AkTivitys</a>
-        </nav>
       </div>
     </section>
 
     <section class="section" id="blog">
-      <div class="container">
-        <div id="latest-posts" class="post-list"><p class="muted">Beiträge werden geladen …</p></div>
-        <p><a class="btn" href="blog.html">Alle Beiträge</a></p>
+      <div class="container blog-layout">
+        <aside class="blog-side">
+          <h2 class="side-title">Kategorien</h2>
+          <nav class="filters side-cats" aria-label="Kategorien">
+            <a class="chip active" href="index.html">Neueste</a>
+            <a class="chip" href="blog.html?kategorie=autos">Autos</a>
+            <a class="chip" href="blog.html?kategorie=investment">Investment</a>
+            <a class="chip" href="blog.html?kategorie=fitness">Fitness</a>
+            <a class="chip" href="blog.html?kategorie=aktivitys">AkTivitys</a>
+          </nav>
+        </aside>
+        <div class="blog-main">
+          <div id="latest-posts" class="post-list"><p class="muted">Beiträge werden geladen …</p></div>
+          <p><a class="btn" href="blog.html">Alle Beiträge</a></p>
+        </div>
       </div>
     </section>
 

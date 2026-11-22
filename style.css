@@ -157,6 +157,29 @@ a:hover { color: var(--blue-hover); }
 .blog-hero h1 { color: var(--blue); font-size: 2.4rem; line-height: 1.2; margin-bottom: .3rem; }
 .blog-hero .filters { margin: 1rem 0 0; }
 .blog-hero + .section { padding-top: 2rem; }
+
+/* Kategorien links neben den Beiträgen (Desktop) */
+.blog-layout { display: grid; gap: 1.5rem; }
+.blog-side .side-title { font-size: .85rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: .6rem; }
+.blog-layout:has(#filters.hidden) .blog-side { display: none; }
+
+@media (min-width: 900px) {
+  .blog-layout { grid-template-columns: 210px minmax(0, 1fr); gap: 2.5rem; align-items: start; }
+  .blog-layout:has(#filters.hidden) { grid-template-columns: minmax(0, 1fr); }
+  .blog-side {
+    position: sticky; top: 80px;
+    background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow);
+    padding: 1.2rem;
+  }
+  .side-cats { flex-direction: column; gap: .2rem; margin: 0; }
+  .side-cats .chip {
+    display: block; border: none; border-radius: 8px; background: transparent;
+    color: var(--text); font-weight: 500; font-size: 1rem; padding: .55rem .8rem;
+    border-left: 3px solid transparent;
+  }
+  .side-cats .chip:hover { background: var(--bg-alt); color: var(--blue); }
+  .side-cats .chip.active { background: var(--blue); color: var(--text-light); border-left-color: var(--blue); }
+}
 .nav-links a[aria-current="page"] { opacity: 1; text-decoration: underline; }
 .intro { font-size: 1.1rem; margin: .4rem 0 .8rem; }
 .subhead { margin: 2.5rem 0 1rem; font-size: 1.3rem; }
