@@ -51,7 +51,7 @@ export async function initBlogPage() {
     if (!sb) { list.innerHTML = notConfiguredHtml; return; }
     const { data: p } = await sb.from("posts_public").select("*").eq("id", postId).maybeSingle();
     if (!p) { heading.textContent = "Beitrag nicht gefunden"; list.innerHTML = '<p><a href="blog.html">← Zur Übersicht</a></p>'; return; }
-    document.title = `${p.title} – Niko Vöhr`;
+    document.title = `${p.title} – Niko`;
     heading.textContent = p.title;
     list.innerHTML = `
       <article class="post-full">
