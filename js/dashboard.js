@@ -172,20 +172,16 @@ async function renderGarages() {
 
   list.innerHTML = rows.map(({ g, s }) => `
     <li class="garage g-${s.state}">
-      <div class="g-main">
-        <div class="g-name"><a href="${escG(g.url)}" rel="noopener" target="_blank">${escG(g.name)}</a> <span class="g-op">${escG(g.operator)}</span></div>
-        <div class="g-status"><span class="g-dot" aria-hidden="true"></span>${escG(s.text)}${s.time ? ` <span class="muted">· ${escG(s.time)}</span>` : ""}</div>
-        <div class="g-prices">${g.prices.map((p) => `<span><b>${escG(p.label)}:</b> ${escG(p.value)}</span>`).join("")}</div>
-      </div>
-      <div class="g-side">
-        <span class="g-walk" title="Fußweg ab ${escG(HOME)} laut Google Maps">🚶 ${walkText(g.walk)}</span>
-        <a class="g-map" href="${mapsLink(g)}" target="_blank" rel="noopener" title="Fußweg in Google Maps öffnen" aria-label="Fußweg zu ${escG(g.name)} in Google Maps öffnen">${PIN_SVG}</a>
-      </div>
+      <div class="g-name"><a href="${escG(g.url)}" rel="noopener" target="_blank">${escG(g.name)}</a> <span class="g-op">${escG(g.operator)}</span></div>
+      <div class="g-status"><span class="g-dot" aria-hidden="true"></span>${escG(s.text)}${s.time ? ` <span class="muted g-time">· <span class="g-time-l">${escG(s.time.replace(/\s*\d\d:\d\d$/, ""))} </span>${escG((s.time.match(/\d\d:\d\d$/) || [""])[0])}</span>` : ""}</div>
+      <div class="g-day" title="Tagespreis"><b>${escG(g.day)}</b>${g.dayMember ? ` <span class="muted">(${escG(g.dayMember)})</span>` : ""}<span class="g-day-l"> /Tag</span></div>
+      <span class="g-walk" title="Fußweg ab ${escG(HOME)} laut Google Maps">🚶 ${walkText(g.walk)}</span>
+      <a class="g-map" href="${mapsLink(g)}" target="_blank" rel="noopener" title="Fußweg in Google Maps öffnen" aria-label="Fußweg zu ${escG(g.name)} in Google Maps öffnen">${PIN_SVG}</a>
     </li>`).join("");
 
   foot.innerHTML = data
-    ? `Nach Entfernung, volle Garagen zuletzt · aktualisiert ${hm(new Date())} · Preise lt. Betreiber, Stand 22.11.2026`
-    : `Live-Belegung gerade nicht erreichbar – sortiert nach Entfernung · Preise lt. Betreiber, Stand 22.11.2026`;
+    ? `Nach Entfernung, volle Garagen zuletzt · aktualisiert ${hm(new Date())} · Tagespreise lt. Betreiber, Stand 22.11.2026`
+    : `Live-Belegung gerade nicht erreichbar – sortiert nach Entfernung · Tagespreise lt. Betreiber, Stand 22.11.2026`;
 }
 
 renderGarages();

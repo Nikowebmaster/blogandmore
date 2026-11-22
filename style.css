@@ -399,39 +399,57 @@ code { background: var(--bg-alt); padding: .1rem .3rem; border-radius: 4px; }
 
 /* ===== Garagen-Widget ===== */
 .widget-garage { grid-column: 1 / -1; }
-.garage-list { list-style: none; display: grid; gap: .4rem; }
+.garage-list { list-style: none; display: grid; gap: .3rem; }
+/* Desktop: eine Zeile pro Garage – Name | Status | Tagespreis | Fußweg | Karte */
 .garage {
-  display: flex; align-items: center; justify-content: space-between; gap: .8rem;
+  display: grid; align-items: center; gap: .3rem .9rem;
+  grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.6fr) minmax(0, 1.3fr) 6.8rem 1.8rem;
   background: #fff; border: 1px solid var(--bg-alt); border-left: 4px solid #a9aeb6;
-  border-radius: 8px; padding: .45rem .7rem; min-width: 0;
+  border-radius: 8px; padding: .3rem .6rem; min-width: 0;
 }
 .garage.g-free { border-left-color: #2bb673; }
 .garage.g-full { border-left-color: #e5484d; opacity: .8; }
-.g-main { min-width: 0; display: grid; gap: .1rem; }
-.g-name { font-weight: 700; font-size: .95rem; }
+.g-name { font-weight: 700; font-size: .9rem; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .g-name a { color: var(--text); text-decoration: none; }
 .g-name a:hover { color: var(--blue); text-decoration: underline; }
-.g-op { font-weight: 500; font-size: .75rem; color: var(--muted); background: var(--bg); border-radius: 99px; padding: .05rem .45rem; margin-left: .2rem; white-space: nowrap; }
-.g-status { font-size: .85rem; display: flex; align-items: center; gap: .35rem; flex-wrap: wrap; }
-.g-dot { width: .6rem; height: .6rem; border-radius: 50%; background: #a9aeb6; flex: none; }
+.g-op { font-weight: 500; font-size: .7rem; color: var(--muted); background: var(--bg); border-radius: 99px; padding: .05rem .4rem; margin-left: .15rem; }
+.g-status { font-size: .82rem; display: flex; align-items: center; gap: .3rem; min-width: 0; white-space: nowrap; overflow: hidden; }
+.g-dot { width: .55rem; height: .55rem; border-radius: 50%; background: #a9aeb6; flex: none; }
 .g-free .g-dot { background: #2bb673; }
 .g-full .g-dot { background: #e5484d; }
 .g-free .g-status { color: #1b6b2f; font-weight: 600; }
 .g-full .g-status { color: #a11a1a; font-weight: 600; }
-.g-prices { font-size: .78rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: .1rem .8rem; }
-.g-prices b { font-weight: 600; color: var(--text); }
-.g-side { display: flex; align-items: center; gap: .6rem; flex: none; }
-.g-walk { font-size: .85rem; font-weight: 600; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.g-status .muted { font-weight: 400; }
+.g-day { font-size: .82rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.g-day-l { color: var(--muted); }
+.g-walk { font-size: .82rem; font-weight: 600; white-space: nowrap; font-variant-numeric: tabular-nums; text-align: right; }
 .g-map {
-  display: grid; place-items: center; width: 2.1rem; height: 2.1rem; border-radius: 50%;
+  display: grid; place-items: center; width: 1.8rem; height: 1.8rem; border-radius: 50%;
   background: var(--blue); color: #fff; transition: background .15s, transform .15s;
 }
-.g-map svg { width: 1.2rem; height: 1.2rem; }
+.g-map svg { width: 1.05rem; height: 1.05rem; }
 .g-map:hover { background: var(--blue-hover); color: #fff; transform: scale(1.08); }
 
-@media (max-width: 640px) {
-  .garage { align-items: flex-start; padding: .45rem .55rem; gap: .5rem; }
-  .g-side { flex-direction: column-reverse; align-items: flex-end; gap: .3rem; }
-  .g-walk { font-size: .78rem; }
-  .g-map { width: 1.9rem; height: 1.9rem; }
+/* Handy: zwei Zeilen – oben Name + Fußweg + Karte, unten Status + Tagespreis */
+@media (max-width: 760px) {
+  .garage {
+    grid-template-columns: minmax(0, 1fr) auto 1.8rem;
+    grid-template-areas: "name walk map" "status day map";
+    gap: .1rem .6rem; padding: .35rem .5rem;
+  }
+  .g-name { grid-area: name; }
+  .g-status { grid-area: status; font-size: .78rem; }
+  .g-day { grid-area: day; text-align: right; font-size: .78rem; }
+  .g-walk { grid-area: walk; font-size: .78rem; }
+  .g-map { grid-area: map; }
+  .g-day .muted { display: none; }   /* bmove-Preis am Handy ausblenden, sonst zu breit */
+}
+@media (max-width: 760px) {
+  .g-op, .g-time-l { display: none; }
+  .g-name { white-space: normal; line-height: 1.25; }
+}
+@media (max-width: 380px) {
+  .garage { gap: .1rem .4rem; }
+  .g-status, .g-day, .g-walk { font-size: .74rem; }
+  .g-status { white-space: normal; flex-wrap: wrap; }
 }
