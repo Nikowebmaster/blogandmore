@@ -159,7 +159,9 @@ a:hover { color: var(--blue-hover); }
 .blog-hero + .section { padding-top: 2rem; }
 
 /* Kategorien links neben den Beiträgen (Desktop) */
-.blog-layout { display: grid; gap: 1.5rem; }
+.blog-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+/* lange Wörter/Links in Beiträgen umbrechen statt die Seite zu verbreitern */
+.post-card, .post-full { min-width: 0; overflow-wrap: anywhere; }
 .blog-side .side-title { font-size: .85rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: .6rem; }
 .blog-layout:has(#filters.hidden) .blog-side { display: none; }
 
